@@ -4,7 +4,7 @@ void criptografia(char *var){
     char letra;
     for (int i = 0; i < 30; i++){
         if (var[i] >= 'A' && var[i] <= 'Z'){
-            letra = var[i] - 'A';
+            letra = *(var+i) - 'A';
             letra = letra + 3;
             letra = letra % 26;
             letra = letra + 'A';
