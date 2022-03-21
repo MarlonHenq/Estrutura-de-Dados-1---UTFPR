@@ -6,17 +6,17 @@ void ordene(int **ppa, int **ppb, int **ppc){ // Função sorting
 
     int temp; //Variável auxiliar
 
-    if(**ppa > **ppb){ // Sorting
+    if(**ppa < **ppb){ // Sorting
         temp = **ppa;
         **ppa = **ppb;
         **ppb = temp;
     }
-    if(**ppa > **ppc){
+    if(**ppa < **ppc){
         temp = **ppa;
         **ppa = **ppc;
         **ppc = temp;
     }
-    if(**ppb > **ppc){
+    if(**ppb < **ppc){
         temp = **ppb;
         **ppb = **ppc;
         **ppc = temp;
