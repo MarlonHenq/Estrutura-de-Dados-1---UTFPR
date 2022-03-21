@@ -8,7 +8,7 @@ void criptografia(char *var){
             letra = letra + 3;
             letra = letra % 26;
             letra = letra + 'A';
-            var[i] = letra;
+            *(var+i) = letra;
         }
     }
 }
