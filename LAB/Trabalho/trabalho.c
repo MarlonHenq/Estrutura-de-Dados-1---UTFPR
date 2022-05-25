@@ -65,15 +65,22 @@ void insereListaSimples(TNo **p, int k){
 }
 
 void removeListaSimples(TNo **p, int k){
+
     TNo *aux = NULL, *anterior = NULL;
 
     if (p==NULL) return;
 
     aux = *p;
 
-    if ((*p)->chave==k && (*p)->prox == NULL){
-        *p = NULL;
-        return;
+    if (aux->chave==k){
+        if (aux->prox == NULL){
+            *p = NULL;
+            return;
+        }
+        else{
+            *p = (*p)->prox;
+            return;
+        }
     }
     else{
         anterior = aux;
@@ -81,13 +88,26 @@ void removeListaSimples(TNo **p, int k){
 
         while (aux!=NULL){
             if(aux->chave == k){
+                //printf("Chave Encontrada\n");
                 anterior->prox = aux->prox;
+                free(aux);
                 return;
             }
 
             anterior = aux;
             aux = aux -> prox;
         }
+    }
+}
+
+void removeTodosListaSimples(TNo **p){
+    TNo *aux = NULL;
+    aux = *p;
+
+    while (aux!=NULL){
+        *p = (*p)->prox;
+        free(aux);
+        aux = *p;
     }
 }
 
@@ -153,12 +173,13 @@ void listaSimplesMenu(){ //Menu da lista Simples
     int chave;
     TNo *lista = NULL;
 
-    while (opcaoUsuario!=4){
+    while (opcaoUsuario!=5){
         printf("================Menu Lista Simples================\n");
         printf("1 - Inserir\n");
         printf("2 - Remover\n");
         printf("3 - Imprimir\n");
-        printf("4 - Sair do Menu Lista Simples\n");
+        printf("4 - Divide Lista\n");
+        printf("5 - Sair do Menu Lista Simples\n");
 
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario);
@@ -170,12 +191,39 @@ void listaSimplesMenu(){ //Menu da lista Simples
                 system("@cls||clear");
                 printf("Digite a chave: ");
                 scanf("%d", &chave);
-                insereListaSimples(&lista, chave);
+                insereListaSimples(&lista, chave); //Adiconar a opção para inseriar após qualquer ponteiro já existente
                 break;
             case 2:
-                printf("Digite a chave: ");
-                scanf("%d", &chave);
-                removeListaSimples(&lista, chave);
+                system("@cls||clear");
+                if (lista == NULL){
+                    printf("LISTA VAZIA, não é possível remover nada!\n");
+                }
+                else{
+                    printf("================Menu Remover================\n");
+                    printf("1 - Remover um elemento\n");
+                    printf("2 - Remover toda lista\n");
+
+                    printf("\nEscolha uma opção: ");
+                    scanf("%d", &opcaoUsuario);
+
+                    printf("=============================================\n");
+
+                    if (opcaoUsuario == 1){
+                        system("@cls||clear");
+                        printf("Digite a chave: ");
+                        scanf("%d", &chave);
+                        removeListaSimples(&lista, chave);
+                    }
+                    else if (opcaoUsuario == 2){
+                        system("@cls||clear");
+                        removeTodosListaSimples(&lista);
+                    }
+                    else{
+                        system("@cls||clear");
+                        printf("Opção inválida\n");
+                        opcaoUsuario = 0;
+                    }
+                }
                 break;
             case 3:
                 system("@cls||clear");
@@ -185,6 +233,10 @@ void listaSimplesMenu(){ //Menu da lista Simples
 
                 break;
             case 4:
+                system("@cls||clear");
+                //printf("Divisão da lista\n");
+                break;
+            case 5:
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
                 
                 if (lista != NULL) {
