@@ -6,11 +6,92 @@ typedef struct no{ // Nó simples utilizado para lista simples, lista com cabeç
     struct no *prox;
 }TNo;
 
+typedef struct Cabeca{
+    char nome[20];
+    TNo *inicio;
+}TCabeca;
+
+//Declaração de Menus
 void listaSimplesMenu();
 void listaComCabecaMenu();
 void listaCircularMenu();
 void listaDuplamenteEncadeadaMenu();
 
+//Aloca nó Simples
+TNo *alocaNoSimples(int k){
+    TNo *novo = (TNo*)malloc(sizeof(TNo));
+
+    if (novo == NULL) return;
+
+    novo->chave = k;
+    novo->prox = NULL;
+
+    return novo;
+}
+//Imprime Listas
+void imprimeListas(TNo *p){
+    if (p == NULL){
+        printf("LISTA VAZIA\n");
+        return;
+    }
+
+    while (p!=NULL){
+        printf("%d\n", p->chave);
+        p = p -> prox;
+    }
+}
+
+//Busca nó Simples
+TNo *buscaNo(TNo *p, int k){
+    if (p == NULL) return NULL;
+
+    while (p!=NULL){
+        if (p->chave == k) return p;
+        p = p -> prox;
+    }
+    printf("Nó não encontrado\n");
+    return NULL;
+}
+
+//Funções de Lista Simples
+void insereListaSimples(TNo **p, int k){
+    TNo *novo=NULL;
+    novo = alocaNoSimples(k);
+
+    if (novo == NULL) return NULL;
+
+    novo -> prox = *p;
+    *p = novo;
+}
+
+void removeListaSimples(TNo **p, int k){
+    TNo *aux = NULL, *anterior = NULL;
+
+    if (p==NULL) return;
+
+    aux = *p;
+
+    if ((*p)->chave==k && (*p)->prox == NULL){
+        *p = NULL;
+        return;
+    }
+    else{
+        anterior = aux;
+        aux = aux -> prox;
+
+        while (aux!=NULL){
+            if(aux->chave == k){
+                anterior->prox = aux->prox;
+                return;
+            }
+
+            anterior = aux;
+            aux = aux -> prox;
+        }
+    }
+}
+
+//Main
 int main(){
 
     int opcaoUsuario = 0; //Variável que armazena a opção do usuário
@@ -26,7 +107,7 @@ int main(){
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario); // Recepção da resposta do usuário
 
-        printf("==============================================\n");
+        printf("=============================================\n");
 
         switch (opcaoUsuario){
             case 1:
@@ -53,6 +134,7 @@ int main(){
                 printf("Saindo do programa\n");
                 break;
             default:
+                system("@cls||clear");
                 printf("Opção inválida\n");
                 break;
         }
@@ -85,22 +167,37 @@ void listaSimplesMenu(){ //Menu da lista Simples
 
         switch (opcaoUsuario){
             case 1:
+                system("@cls||clear");
                 printf("Digite a chave: ");
                 scanf("%d", &chave);
-                // insereLista(&lista, chave);
+                insereListaSimples(&lista, chave);
                 break;
             case 2:
                 printf("Digite a chave: ");
                 scanf("%d", &chave);
-                // buscaLista(lista, chave);
+                removeListaSimples(&lista, chave);
                 break;
             case 3:
+                system("@cls||clear");
                 printf("Lista: \n");
-                // imprimeLista(lista);
+                
+                imprimeListas(lista);
+
                 break;
             case 4:
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
-                return;
+                
+                if (lista != NULL) {
+                    printf("Caso saia do menu a lista será perdida\n");
+                    printf("Deseja sair? (1 - Sim, 2 - Não)\n");
+                    scanf("%d", &opcaoUsuario);
+                    if (opcaoUsuario==1) {
+                        return;
+                        system("@cls||clear");
+                    }
+                }
+                else return;
+
                 break;
             default:
                 system("@cls||clear");
@@ -136,7 +233,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
             case 2:
                 printf("Digite a chave: ");
                 scanf("%d", &chave);
-                // buscaLista(lista, chave);
+                // RemoverListaSimples(&lista, chave);
                 break;
             case 3:
                 printf("Lista: \n");
