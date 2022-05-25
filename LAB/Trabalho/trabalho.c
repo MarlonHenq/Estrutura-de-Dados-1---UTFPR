@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//Cores especiais
 #define errorColor     "\x1b[31m"
 #define listColor    "\x1b[34m"
 #define alertColor  "\x1b[33m"
@@ -193,6 +194,7 @@ int main(){
                 helpMenu();
                 break;
             case 6:
+                system("@cls||clear");
                 printf("Saindo do programa\n");
                 break;
             default:
@@ -475,6 +477,8 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
 }
 
 void helpMenu(){
+    int opcaoUsuario = 0;
+
     system("@cls||clear");
     printf("================Menu Help================\n");
     printf("Trabalho de Estruturas de Dados\n");
@@ -485,4 +489,11 @@ void helpMenu(){
 
     printf("\n");
     printf("\n");
+
+    printf("0 - Sair\n");
+    scanf("%d", &opcaoUsuario);
+    if (opcaoUsuario>=0) {
+        system("@cls||clear");
+        return;
+    }
 }
