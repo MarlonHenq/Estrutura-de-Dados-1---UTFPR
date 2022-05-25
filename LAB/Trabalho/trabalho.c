@@ -90,13 +90,13 @@ void listaSimplesMenu(){ //Menu da lista Simples
                 // insereLista(&lista, chave);
                 break;
             case 2:
-                printf("Lista: \n");
-                // imprimeLista(lista);
-                break;
-            case 3:
                 printf("Digite a chave: ");
                 scanf("%d", &chave);
                 // buscaLista(lista, chave);
+                break;
+            case 3:
+                printf("Lista: \n");
+                // imprimeLista(lista);
                 break;
             case 4:
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
@@ -134,13 +134,13 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                 // insereLista(&lista, chave);
                 break;
             case 2:
-                printf("Lista: \n");
-                // imprimeLista(lista);
-                break;
-            case 3:
                 printf("Digite a chave: ");
                 scanf("%d", &chave);
                 // buscaLista(lista, chave);
+                break;
+            case 3:
+                printf("Lista: \n");
+                // imprimeLista(lista);
                 break;
             case 4:
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
@@ -178,13 +178,13 @@ void listaCircularMenu(){ // Menu da lista circular
                 // insereLista(&lista, chave);
                 break;
             case 2:
-                printf("Lista: \n");
-                // imprimeLista(lista);
-                break;
-            case 3:
                 printf("Digite a chave: ");
                 scanf("%d", &chave);
                 // buscaLista(lista, chave);
+                break;
+            case 3:
+                printf("Lista: \n");
+                // imprimeLista(lista);
                 break;
             case 4:
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
@@ -222,13 +222,13 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                 // insereLista(&lista, chave);
                 break;
             case 2:
-                printf("Lista: \n");
-                // imprimeLista(lista);
-                break;
-            case 3:
                 printf("Digite a chave: ");
                 scanf("%d", &chave);
                 // buscaLista(lista, chave);
+                break;
+            case 3:
+                printf("Lista: \n");
+                // imprimeLista(lista);
                 break;
             case 4:
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
