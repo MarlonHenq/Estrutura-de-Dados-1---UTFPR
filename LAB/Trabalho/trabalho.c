@@ -54,14 +54,23 @@ TNo *buscaNo(TNo *p, int k){
 }
 
 //Funções de Lista Simples
-void insereListaSimples(TNo **p, int k){
+void insereListaSimples(TNo **p, int k, int chave){
     TNo *novo=NULL;
+
     novo = alocaNoSimples(k);
 
     if (novo == NULL) return NULL;
 
-    novo -> prox = *p;
-    *p = novo;
+    if (chave == NULL){
+        novo -> prox = *p;
+        *p = novo;
+    }
+    else{
+        TNo *aux = buscaNo(*p, chave);
+        novo -> prox = aux -> prox;
+        aux -> prox = novo;
+    }
+    
 }
 
 void removeListaSimples(TNo **p, int k){
@@ -171,6 +180,7 @@ int main(){
 void listaSimplesMenu(){ //Menu da lista Simples
     int opcaoUsuario = 0;
     int chave;
+    int chave2;
     TNo *lista = NULL;
 
     while (opcaoUsuario!=5){
@@ -189,9 +199,18 @@ void listaSimplesMenu(){ //Menu da lista Simples
         switch (opcaoUsuario){
             case 1:
                 system("@cls||clear");
-                printf("Digite a chave: ");
-                scanf("%d", &chave);
-                insereListaSimples(&lista, chave); //Adiconar a opção para inseriar após qualquer ponteiro já existente
+                if (lista == NULL){
+                    printf("Digite a chave do novo nó: ");
+                    scanf("%d", &chave);
+                    insereListaSimples(&lista, chave, NULL); 
+                }
+                else{
+                    printf("Digite a chave do nó já existente, apara a insersção do novo nó após este: ");
+                    scanf("%d", &chave2);
+                    printf("Digite a chave do novo nó: ");
+                    scanf("%d", &chave);
+                    insereListaSimples(&lista, chave, chave2);
+                }
                 break;
             case 2:
                 system("@cls||clear");
