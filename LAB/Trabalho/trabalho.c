@@ -73,6 +73,27 @@ void insereListaSimples(TNo **p, int k, int chave){
     
 }
 
+void insereOrdemListaSimples(TNo **p, int k){
+    TNo *novo=NULL;
+    TNo *aux = NULL;
+
+    novo = alocaNoSimples(k);
+
+    if (novo == NULL) return NULL;
+
+    if (*p == NULL){
+        *p = novo;
+    }
+    else{
+        aux = *p;
+        while (aux->prox != NULL && aux->prox->chave > k){
+            aux = aux -> prox;
+        }
+        novo -> prox = aux -> prox;
+        aux -> prox = novo;
+    }
+}
+
 void removeListaSimples(TNo **p, int k){
 
     TNo *aux = NULL, *anterior = NULL;
@@ -205,11 +226,42 @@ void listaSimplesMenu(){ //Menu da lista Simples
                     insereListaSimples(&lista, chave, NULL); 
                 }
                 else{
-                    printf("Digite a chave do nó já existente, apara a insersção do novo nó após este: ");
-                    scanf("%d", &chave2);
-                    printf("Digite a chave do novo nó: ");
-                    scanf("%d", &chave);
-                    insereListaSimples(&lista, chave, chave2);
+                    printf("================Menu Inserir================\n");
+                    printf("1 - Inserir após um nó\n");
+                    printf("2 - Inserir em ordem crescente\n");
+                    printf("3 - Inserir no começo\n");
+
+                    printf("\nEscolha uma opção: ");
+                    scanf("%d", &opcaoUsuario);
+
+                    printf("=============================================\n");
+
+                    switch (opcaoUsuario){
+                        case 1:
+                            system("@cls||clear");
+                            printf("Digite a chave do nó: ");
+                            scanf("%d", &chave);
+                            printf("Digite a chave do nó após o qual o novo nó será inserido: ");
+                            scanf("%d", &chave2);
+                            insereListaSimples(&lista, chave, chave2);
+                            break;
+                        case 2:
+                            system("@cls||clear");
+                            printf("Digite a chave do nó: ");
+                            scanf("%d", &chave);
+                            insereOrdemListaSimples(&lista, chave);
+                            break;
+                        case 3:
+                            system("@cls||clear");
+                            printf("Digite a chave do nó: ");
+                            scanf("%d", &chave);
+                            insereListaSimples(&lista, chave, NULL);
+                            break;
+                        default:
+                            system("@cls||clear");
+                            printf("Opção inválida\n");
+                            break;
+                    }
                 }
                 break;
             case 2:
