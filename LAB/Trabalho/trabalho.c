@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define errorColor     "\x1b[31m"
+#define listColor    "\x1b[34m"
+#define alertColor  "\x1b[33m"
+#define contrastColor    "\x1b[36m"
+
 typedef struct no{ // Nó simples utilizado para lista simples, lista com cabeça e lista circular
     int chave;
     struct no *prox;
@@ -16,6 +21,7 @@ void listaSimplesMenu();
 void listaComCabecaMenu();
 void listaCircularMenu();
 void listaDuplamenteEncadeadaMenu();
+void helpMenu();
 
 //Aloca nó Simples
 TNo *alocaNoSimples(int k){
@@ -31,12 +37,12 @@ TNo *alocaNoSimples(int k){
 //Imprime Listas
 void imprimeListas(TNo *p){
     if (p == NULL){
-        printf("LISTA VAZIA\n");
+        printf(errorColor "LISTA VAZIA\n");
         return;
     }
 
     while (p!=NULL){
-        printf("%d\n", p->chave);
+        printf(listColor "%d\n", p->chave);
         p = p -> prox;
     }
 }
@@ -49,7 +55,7 @@ TNo *buscaNo(TNo *p, int k){
         if (p->chave == k) return p;
         p = p -> prox;
     }
-    printf("Nó não encontrado\n");
+    printf(errorColor "Nó não encontrado\n");
     return NULL;
 }
 
@@ -146,13 +152,14 @@ int main(){
 
     int opcaoUsuario = 0; //Variável que armazena a opção do usuário
 
-    while (opcaoUsuario!=5){
+    while (opcaoUsuario!=6){
         printf("====================Menu1====================\n"); //Menu princial para escolher qual lista utilizar
         printf("1 - Lista Simples\n");
         printf("2 - Lista com Cabeça\n");
         printf("3 - Lista Circular\n");
         printf("4 - Lista Duplamente Encadeada\n");
-        printf("5 - Sair do programa\n");
+        printf("5 - Help\n");
+        printf("6 - Sair do programa\n");
 
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario); // Recepção da resposta do usuário
@@ -181,11 +188,14 @@ int main(){
                 listaDuplamenteEncadeadaMenu();
                 break;
             case 5:
+                helpMenu();
+                break;
+            case 6:
                 printf("Saindo do programa\n");
                 break;
             default:
                 system("@cls||clear");
-                printf("Opção inválida\n");
+                printf(errorColor "Opção inválida\n");
                 break;
         }
 
@@ -259,7 +269,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                             break;
                         default:
                             system("@cls||clear");
-                            printf("Opção inválida\n");
+                            printf(errorColor "Opção inválida\n");
                             break;
                     }
                 }
@@ -267,7 +277,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
             case 2:
                 system("@cls||clear");
                 if (lista == NULL){
-                    printf("LISTA VAZIA, não é possível remover nada!\n");
+                    printf(errorColor "LISTA VAZIA, não é possível remover nada!\n");
                 }
                 else{
                     printf("================Menu Remover================\n");
@@ -291,7 +301,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                     }
                     else{
                         system("@cls||clear");
-                        printf("Opção inválida\n");
+                        printf(errorColor "Opção inválida\n");
                         opcaoUsuario = 0;
                     }
                 }
@@ -311,8 +321,8 @@ void listaSimplesMenu(){ //Menu da lista Simples
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
                 
                 if (lista != NULL) {
-                    printf("Caso saia do menu a lista será perdida\n");
-                    printf("Deseja sair? (1 - Sim, 2 - Não)\n");
+                    printf(alertColor "Caso saia do menu a lista será perdida\n");
+                    printf(alertColor "Deseja sair? (1 - Sim, 2 - Não)\n");
                     scanf("%d", &opcaoUsuario);
                     if (opcaoUsuario==1) {
                         return;
@@ -460,4 +470,17 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                 break;
         }
     }
+}
+
+void helpMenu(){
+    system("@cls||clear");
+    printf("================Menu Help================\n");
+    printf("Trabalho de Estruturas de Dados\n");
+    printf("\n");
+    printf("Autores: \n");
+    printf(contrastColor "Marlon Henrique Sanches\n");
+    printf("=========================================\n");
+
+    printf("\n");
+    printf("\n");
 }
