@@ -14,7 +14,7 @@ typedef struct no{ // Nó simples utilizado para lista simples, lista com cabeç
     struct no *prox;
 }TNo;
 
-typedef struct Cabeca{
+typedef struct Cabeca{ // Nó cabeca
     char nome[20];
     TNo *inicio;
 }TCabeca;
@@ -82,7 +82,7 @@ void insereListaSimples(TNo **p, int k, int chave){
     
 }
 
-void insereOrdemListaSimples(TNo **p, int k){
+void insereOrdemCrescenteListaSimples(TNo **p, int k){ //VERIFICAR
     TNo *novo=NULL;
     TNo *aux = NULL;
 
@@ -95,7 +95,7 @@ void insereOrdemListaSimples(TNo **p, int k){
     }
     else{
         aux = *p;
-        while (aux->prox != NULL && aux->prox->chave > k){
+        while (aux->prox != NULL && aux->chave > k){
             aux = aux -> prox;
         }
         novo -> prox = aux -> prox;
@@ -113,11 +113,14 @@ void removeListaSimples(TNo **p, int k){
 
     if (aux->chave==k){
         if (aux->prox == NULL){
+            free(*p);
             *p = NULL;
             return;
         }
         else{
+            aux = *p;
             *p = (*p)->prox;
+            free(aux);
             return;
         }
     }
@@ -137,6 +140,7 @@ void removeListaSimples(TNo **p, int k){
             aux = aux -> prox;
         }
     }
+    printf(errorColor "Nó não Exite\n" resetColor);
 }
 
 void removeTodosListaSimples(TNo **p){
@@ -263,7 +267,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                             system("@cls||clear");
                             printf("Digite a chave do nó: ");
                             scanf("%d", &chave);
-                            insereOrdemListaSimples(&lista, chave);
+                            insereOrdemCrescenteListaSimples(&lista, chave);
                             break;
                         case 3:
                             system("@cls||clear");
