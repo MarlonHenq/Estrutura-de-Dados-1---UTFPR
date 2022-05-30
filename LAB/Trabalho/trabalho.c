@@ -75,6 +75,9 @@ void insereListaSimples(TNo **p, int k, int chave){
     }
     else{
         TNo *aux = buscaNo(*p, chave);
+        
+        if (aux == NULL) return;
+
         novo -> prox = aux -> prox;
         aux -> prox = novo;
     }
@@ -82,24 +85,38 @@ void insereListaSimples(TNo **p, int k, int chave){
 }
 
 void insereOrdemCrescenteListaSimples(TNo **p, int k){ //VERIFICAR
-    TNo *novo=NULL;
-    TNo *aux = NULL;
-
-    novo = alocaNoSimples(k);
-
-    if (novo == NULL) return NULL;
+    TNo *anterior, *proximo;
 
     if (*p == NULL){
+        *p = alocaNoSimples(k);
+        return;
+    }
+
+    if ((*p)->chave > k){
+        TNo *novo = alocaNoSimples(k);
+        novo -> prox = *p;
         *p = novo;
+        return;
     }
-    else{
-        aux = *p;
-        while (aux->prox != NULL && aux->chave > k){
-            aux = aux -> prox;
+
+
+    while (*p != NULL && (*p) -> prox != NULL){
+
+        if ((*p) -> prox -> chave > k){
+            proximo = (*p) -> prox;
+            anterior = *p;
+            (*p) -> prox = alocaNoSimples(k);
+            (*p) -> prox -> prox = proximo;
+            return;
         }
-        novo -> prox = aux -> prox;
-        aux -> prox = novo;
+        
+        anterior = *p;
+        p = &(*p)->prox;
     }
+
+    (*p) -> prox = alocaNoSimples(k);
+    return;
+
 }
 
 void removeListaSimples(TNo **p, int k){
@@ -143,6 +160,7 @@ void removeListaSimples(TNo **p, int k){
 }
 
 void removeTodosListaSimples(TNo **p){
+
     TNo *aux = NULL;
     aux = *p;
 
@@ -151,6 +169,15 @@ void removeTodosListaSimples(TNo **p){
         free(aux);
         aux = *p;
     }
+}
+
+void divideListaSimples(TNo **p, TNo **Lista2, int k){
+    TNo *busca = buscaNo(*p, k);
+
+    if (busca == NULL) return;
+
+    *Lista2 = busca -> prox;
+    busca -> prox = NULL;
 }
 
 //Main
@@ -359,12 +386,23 @@ void listaSimplesMenu(){ //Menu da lista Simples
                 break;
             case 4:
                 system("@cls||clear");
-                //printf("Divisão da lista\n");
+                if (lista == NULL){
+                    printf(errorColor "LISTA VAZIA, não é possível dividir nada!\n" resetColor);
+                }
+                else if(lista2 != NULL){
+                    printf(errorColor "A lista já foi dividida, não é possível dividir mais!\n" resetColor);
+                }
+                else{
+                    printf("Digite a chave: ");
+                    scanf("%d", &chave);
+                    divideListaSimples(&lista, &lista2, chave);
+                }
+
                 break;
             case 5:
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
                 
-                if (lista != NULL && lista2 != NULL) {
+                if (lista != NULL || lista2 != NULL) {
                     printf(alertColor "Caso saia do menu a(s) lista(s) será(ão) perdida(s)\n" resetColor);
                     printf("Deseja sair? (1 - Sim, 2 - Não)\n");
                     scanf("%d", &opcaoUsuario);
@@ -525,7 +563,7 @@ void helpMenu(){
     printf("\n");
     printf("Autores: \n");
     printf(contrastColor "Marlon Henrique Sanches\n" resetColor);
-    printf(contrastColor "João \n" resetColor);
+    printf(contrastColor "João Vitor Queiroz de Campos Pires\n" resetColor);
     printf("=========================================\n");
 
     printf("\n");
