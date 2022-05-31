@@ -37,7 +37,10 @@ void helpMenu();
 TNo *alocaNoSimples(int k){
     TNo *novo = (TNo*)malloc(sizeof(TNo));
 
-    if (novo == NULL) return;
+    if (novo == NULL){
+        printf(errorColor "Erro ao alocar memória\n" resetColor);
+        return NULL;
+    }
 
     novo->chave = k;
     novo->prox = NULL;
@@ -94,12 +97,12 @@ void insereListaSimples(TNo **p, int k, int chave){
 void insereOrdemCrescenteListaSimples(TNo **p, int k){ 
     TNo *anterior, *proximo;
 
-    if (*p == NULL){
+    if (*p == NULL){ // Adiciona um nó se a lista está vazia
         *p = alocaNoSimples(k);
         return;
-    }
+    } 
 
-    if ((*p)->chave > k){
+    if ((*p)->chave > k){ // Adiciona um nó no inicio da lista
         TNo *novo = alocaNoSimples(k);
         novo -> prox = *p;
         *p = novo;
@@ -107,7 +110,7 @@ void insereOrdemCrescenteListaSimples(TNo **p, int k){
     }
 
 
-    while (*p != NULL && (*p) -> prox != NULL){
+    while (*p != NULL && (*p) -> prox != NULL){ // Adiciona um nó no meio da lista
 
         if ((*p) -> prox -> chave > k){
             proximo = (*p) -> prox;
@@ -356,7 +359,99 @@ void divideListaCircular(TNo **p, TNo **Lista2, int k){
 }
 
 //Funções de Lista Duplamente Encadeada
+TNoEncadeado *alocaNoEncadeado(int k){
+    TNoEncadeado *novo = (TNoEncadeado *) malloc(sizeof(TNoEncadeado));
 
+    if (novo == NULL){
+        printf(errorColor "Erro ao alocar memória\n" resetColor);
+        return NULL;
+    }
+
+    novo -> chave = k;
+    novo -> prox = NULL;
+    novo -> ant = NULL;
+
+    return novo;
+}
+
+TNoEncadeado *buscaNoEncadeado(TNoEncadeado *p, int k){
+    if (p == NULL) return NULL;
+
+    TNoEncadeado *aux = p;
+
+    if (p->chave == k) return p;
+
+    p = p -> prox;
+
+    while (p!=aux){
+        if (p->chave == k) return p;
+        p = p -> prox;
+    }
+    printf(errorColor "Nó não encontrado\n" resetColor);
+    return NULL;
+}
+
+void insereListaDupla(TNoEncadeado **p, int k, int chave){
+    TNoEncadeado *novo=NULL;
+
+    novo = alocaNoEncadeado(k);
+
+    if (novo == NULL) return;
+
+    if (chave == NULL){ //Insere no inicio quando não ha nada na lista
+        *p = novo;
+    }
+    else{                                   // Insere no meio
+        TNoEncadeado *aux = buscaNoEncadeado(*p, chave); 
+        
+        if (aux == NULL) return;
+
+        if (aux->prox == NULL){ //Insere no final
+            aux->prox = novo;
+            novo->ant = aux;
+        }
+        else{
+            novo->prox = aux->prox;
+            novo->ant = aux;
+            aux->prox->ant = novo;
+            aux->prox = novo;
+        }
+    }
+}
+
+void insereOrdemCrescenteListaDupla(TNoEncadeado **p, int k){ //VERIFICAR
+TNoEncadeado *anterior, *proximo;
+
+    if (*p == NULL){ // Adiciona um nó se a lista está vazia
+        *p = alocaNoEncadeado(k);
+        return;
+    } 
+
+    if ((*p)->chave > k){ // Adiciona um nó no inicio da lista
+        TNoEncadeado *novo = alocaNoEncadeado(k);
+        novo -> prox = *p;
+        *p = novo;
+        return;
+    }
+
+
+    while (*p != NULL && (*p) -> prox != NULL){ // Adiciona um nó no meio da lista
+
+        if ((*p) -> prox -> chave > k){
+            proximo = (*p) -> prox;
+            anterior = *p;
+            (*p) -> prox = alocaNoEncadeado(k);
+            (*p) -> prox -> prox = proximo;
+            return;
+        }
+        
+        anterior = *p;
+        p = &(*p)->prox;
+    }
+
+    (*p) -> prox = alocaNoEncadeado(k);
+    return;
+}
 
 //Main
 int main(){
@@ -979,7 +1074,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                 if (lista == NULL){
                     printf("Digite a chave do novo nó: ");
                     scanf("%d", &chave);
-                    insereListaSimples(&lista, chave, NULL); 
+                    insereListaDupla(&lista, chave, NULL); 
                 }
                 else{
                     if (memoriaOpcao == 0){
@@ -1001,7 +1096,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                                 scanf("%d", &chave);
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
-                                insereListaSimples(&lista, chave, chave2);
+                                insereListaDupla(&lista, chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
@@ -1023,7 +1118,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                                 scanf("%d", &chave);
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
-                                insereListaSimples(&lista, chave, chave2);
+                                insereListaDupla(&lista, chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
