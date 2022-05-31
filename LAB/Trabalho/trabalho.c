@@ -419,7 +419,7 @@ void insereListaDupla(TNoEncadeado **p, int k, int chave){
     }
 }
 
-void insereOrdemCrescenteListaDupla(TNoEncadeado **p, int k){ //VERIFICAR
+void insereOrdemCrescenteListaDupla(TNoEncadeado **p, int k){ 
 TNoEncadeado *anterior, *proximo;
 
     if (*p == NULL){ // Adiciona um nó se a lista está vazia
@@ -429,11 +429,11 @@ TNoEncadeado *anterior, *proximo;
 
     if ((*p)->chave > k){ // Adiciona um nó no inicio da lista
         TNoEncadeado *novo = alocaNoEncadeado(k);
-        novo -> prox = *p;
-        *p = novo;
+        novo -> prox = *p; //Novo ponteiro aponta para o proximo
+        *p = novo; 
+        (*p) -> prox -> ant = *p; //O proximo ponteiro aponta para o novo
         return;
     }
-
 
     while (*p != NULL && (*p) -> prox != NULL){ // Adiciona um nó no meio da lista
 
@@ -442,6 +442,9 @@ TNoEncadeado *anterior, *proximo;
             anterior = *p;
             (*p) -> prox = alocaNoEncadeado(k);
             (*p) -> prox -> prox = proximo;
+            
+            (*p) -> prox -> ant = anterior;
+            proximo -> ant = (*p) -> prox;
             return;
         }
         
@@ -449,8 +452,69 @@ TNoEncadeado *anterior, *proximo;
         p = &(*p)->prox;
     }
 
-    (*p) -> prox = alocaNoEncadeado(k);
+    (*p) -> prox = alocaNoEncadeado(k); // Adiciona um nó no final da lista
+    (*p) -> prox -> ant = *p; //O ponteiro novo aponta de volta para o anterior
     return;
+}
+
+void removeListaDuplamenteEncadeada(TNoEncadeado **p, int k){
+     TNoEncadeado *aux = NULL, *anterior = NULL;
+
+    if (p==NULL) return;
+
+    aux = *p;
+
+    if (aux->chave==k){ // Caso remover elemento que é o primeiro da lista
+        if (aux->prox == NULL){ //Caso remover elemento que é o unico da lista
+            free(*p);
+            *p = NULL;
+            return;
+        }
+        else{
+            aux = *p;
+            *p = (*p)->prox;
+            (*p) -> ant = NULL;
+
+            free(aux);
+            return;
+        }
+    }
+    else{
+        anterior = aux;
+        aux = aux -> prox;
+
+        while (aux!=NULL){
+            if(aux->chave == k){
+
+                if (aux->prox == NULL){ //Caso remover que é o ultimo da lista
+                    anterior->prox = NULL;
+                    free(aux);
+                    return;
+                }
+                else{
+                    anterior->prox = aux->prox; //Caso remover que é o meio da lista
+                    aux->prox->ant = anterior;
+                    free(aux);
+                    return;
+                }
+            }
+
+            anterior = aux;
+            aux = aux -> prox;
+        }
+    }
+    printf(errorColor "Nó não Exite\n" resetColor);
+}
+
+void divideListaDuplamenteEncadeada(TNoEncadeado **p, TNoEncadeado **Lista2, int k){
+    TNo *busca = buscaNoEncadeado(*p, k);
+
+    if (busca == NULL) return;
+
+    *Lista2 = busca -> prox;
+    (*Lista2) -> ant = NULL;
+    
+    busca -> prox = NULL;
 }
 
 //Main
@@ -1102,7 +1166,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
-                                insereOrdemCrescenteListaSimples(&lista, chave);
+                                insereOrdemCrescenteListaDupla(&lista, chave);
                                 break;
                             default:
                                 system("@cls||clear");
@@ -1124,7 +1188,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
-                                insereOrdemCrescenteListaSimples(&lista, chave);
+                                insereOrdemCrescenteListaDupla(&lista, chave);
                                 break;
                             default:
                                 system("@cls||clear");
@@ -1153,7 +1217,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                         system("@cls||clear");
                         printf("Digite a chave: ");
                         scanf("%d", &chave);
-                        removeListaSimples(&lista, chave);
+                        removeListaDuplamenteEncadeada(&lista, chave);
                     }
                     else if (opcaoUsuario == 2){
                         system("@cls||clear");
@@ -1188,7 +1252,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                 else{
                     printf("Digite a chave: ");
                     scanf("%d", &chave);
-                    divideListaSimples(&lista, &lista2, chave);
+                    divideListaDuplamenteEncadeada(&lista, &lista2, chave);
                 }
 
                 break;
