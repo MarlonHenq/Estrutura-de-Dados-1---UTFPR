@@ -61,7 +61,7 @@ TNo *buscaNo(TNo *p, int k){
     return NULL;
 }
 
-//Funções de Lista Simples
+//Funções de Lista Simples e Com Cabeça
 void insereListaSimples(TNo **p, int k, int chave){
     TNo *novo=NULL;
 
@@ -84,7 +84,7 @@ void insereListaSimples(TNo **p, int k, int chave){
     
 }
 
-void insereOrdemCrescenteListaSimples(TNo **p, int k){ //VERIFICAR
+void insereOrdemCrescenteListaSimples(TNo **p, int k){ 
     TNo *anterior, *proximo;
 
     if (*p == NULL){
@@ -180,6 +180,156 @@ void divideListaSimples(TNo **p, TNo **Lista2, int k){
     busca -> prox = NULL;
 }
 
+//Funções de Lista Circular
+
+TNo *buscaNoCircular(TNo *p, int k){
+    if (p == NULL) return NULL;
+
+    TNo *aux = p;
+
+    if (p->chave == k) return p;
+
+    p = p -> prox;
+
+    while (p!=aux){
+        if (p->chave == k) return p;
+        p = p -> prox;
+    }
+    printf(errorColor "Nó não encontrado\n" resetColor);
+    return NULL;
+}
+
+void insereListaCircular(TNo **p, int k, int chave){
+    TNo *novo=NULL;
+
+    novo = alocaNoSimples(k);
+
+    if (novo == NULL) return NULL;
+
+    if (chave == NULL){
+        novo -> prox = novo;
+        *p = novo;
+    }
+    else{
+        TNo *aux = buscaNoCircular(*p, chave);
+        
+        if (aux == NULL) return;
+
+        novo -> prox = aux -> prox;
+        aux -> prox = novo;
+    }
+}
+
+void insereOrdemCrescenteListaCircular(TNo **p, int k){
+    TNo *anterior, *proximo;
+
+    if (*p == NULL){ //Insere caso lista vazia
+        *p = alocaNoSimples(k);
+        (*p) -> prox = *p; //Cria lista circular p aponta para p
+        return;
+    }
+
+    if ((*p)->chave > k){ //Insere no inicio
+        TNo *novo = alocaNoSimples(k);
+        novo -> prox = *p;
+        
+        TNo *aux = *p;
+
+        while (aux -> prox != *p){
+            aux = aux -> prox;
+        }
+        aux -> prox = novo;
+        *p = novo;
+
+        return;
+    }
+
+    //Insere no meio (e final)
+    anterior = *p;
+    proximo = (*p) -> prox;
+
+    while (proximo != *p && proximo -> chave < k){
+        anterior = proximo;
+        proximo = proximo -> prox;
+    }
+    
+    TNo *novo = alocaNoSimples(k);
+    novo -> prox = proximo;
+    anterior -> prox = novo;
+}
+
+void imprimeListaCircular(TNo *p){
+    if (p == NULL){
+        printf(errorColor "LISTA VAZIA\n" resetColor);
+        return;
+    }
+    TNo *aux = p;
+    while (p->prox != aux){
+        printf(listColor "%d\n" resetColor, p->chave);
+        p = p -> prox;
+    }
+    printf(listColor "%d\n" resetColor, p->chave);
+}
+
+void removeListaCircular(TNo **p, int k){
+    TNo *aux = NULL, *anterior = NULL;
+
+    if (p==NULL) return;
+
+    aux = *p;
+
+    if (aux->chave==k){ //Caso remover o primeiro elemento da lista quando ele aponta para ele mesmo (lista unitária)
+        if (aux->prox == aux){
+            free(*p);
+            *p = NULL;
+            return;
+        }
+        else{ //Caso remover o primeiro elemento da lista quando ele aponta para outro elemento
+            aux = *p;
+            *p = (*p)->prox;
+            
+            while ((*p)->prox != aux){
+                (*p) = (*p) -> prox;
+            }
+            (*p) -> prox = aux -> prox;
+
+            free(aux);
+            return;
+        }
+    }
+    else{ //Caso remover elemento que não é o primeiro da lista
+        anterior = aux;
+        aux = aux -> prox;
+
+        while (aux!=*p){
+            if(aux->chave == k){
+                anterior->prox = aux->prox;
+                free(aux);
+                return;
+            }
+
+            anterior = aux;
+            aux = aux -> prox;
+        }
+    }
+    printf(errorColor "Nó não Exite\n" resetColor);
+}
+
+void removeTodosListaCircular(TNo **p){
+
+    TNo *aux = NULL;
+    aux = *p;
+
+    while (aux!=*p){
+        *p = (*p)->prox;
+        free(aux);
+        aux = *p;
+    }
+    free(aux);
+    *p = NULL;
+}
+
+
 //Main
 int main(){
 
@@ -241,7 +391,6 @@ int main(){
 }
 
 //MENUS
-
 void listaSimplesMenu(){ //Menu da lista Simples
     int opcaoUsuario = 0;
     int memoriaOpcao = 0;
@@ -277,6 +426,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                         printf("1 - Inserir após um nó\n");
                         printf("2 - Inserir em ordem crescente\n");
                         printf("3 - Inserir no começo\n");
+                        printf(alertColor "PS: A opção selecionada será usada por todas as inserções a partir dessa escolha para essa lista\n" resetColor);
 
                         printf("\nEscolha uma opção: ");
                         scanf("%d", &opcaoUsuario);
@@ -460,6 +610,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                         printf("1 - Inserir após um nó\n");
                         printf("2 - Inserir em ordem crescente\n");
                         printf("3 - Inserir no começo\n");
+                        printf(alertColor "PS: A opção selecionada será usada por todas as inserções a partir dessa escolha para essa lista\n" resetColor);
 
                         printf("\nEscolha uma opção: ");
                         scanf("%d", &opcaoUsuario);
@@ -607,39 +758,163 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
 
 void listaCircularMenu(){ // Menu da lista circular
     int opcaoUsuario = 0;
+    int memoriaOpcao = 0;
     int chave;
+    int chave2;
     TNo *lista = NULL;
+    TNo *lista2 = NULL;
 
-    while (opcaoUsuario!=4){
+    while (opcaoUsuario!=5){
         printf("================Menu Lista Circular================\n");
         printf("1 - Inserir\n");
         printf("2 - Remover\n");
         printf("3 - Imprimir\n");
-        printf("4 - Sair do Menu Lista Circular\n");
+        printf("4 - Divide Lista\n");
+        printf("5 - Sair do Menu Lista Circular\n");
 
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario);
 
-        printf("====================================================\n");
+        printf("===================================================\n");
 
         switch (opcaoUsuario){
             case 1:
-                printf("Digite a chave: ");
-                scanf("%d", &chave);
-                // insereLista(&lista, chave);
+                system("@cls||clear");
+                if (lista == NULL){
+                    printf("Digite a chave do novo nó: ");
+                    scanf("%d", &chave);
+                    insereListaCircular(&lista, chave, NULL); 
+                }
+                else{
+                    if (memoriaOpcao == 0){
+                        printf("================Menu Inserir================\n");
+                        printf("1 - Inserir após um nó\n");
+                        printf("2 - Inserir em ordem crescente\n");
+                        printf(alertColor "PS: A opção selecionada será usada por todas as inserções a partir dessa escolha para essa lista\n" resetColor);
+
+                        printf("\nEscolha uma opção: ");
+                        scanf("%d", &opcaoUsuario);
+
+                        printf("=============================================\n");
+                        memoriaOpcao = opcaoUsuario;
+
+                        switch (memoriaOpcao){
+                            case 1:
+                                system("@cls||clear");
+                                printf("Digite a chave do nó: ");
+                                scanf("%d", &chave);
+                                printf("Digite a chave do nó após o qual o novo nó será inserido: ");
+                                scanf("%d", &chave2);
+                                insereListaCircular(&lista, chave, chave2);
+                                break;
+                            case 2:
+                                system("@cls||clear");
+                                printf("Digite a chave do nó: ");
+                                scanf("%d", &chave);
+                                insereOrdemCrescenteListaCircular(&lista, chave);
+                                break;
+                            default:
+                                system("@cls||clear");
+                                printf(errorColor "Opção inválida\n" resetColor);
+                                break;
+                        }
+                    }
+                    else{
+                        switch (memoriaOpcao){
+                            case 1:
+                                system("@cls||clear");
+                                printf("Digite a chave do nó: ");
+                                scanf("%d", &chave);
+                                printf("Digite a chave do nó após o qual o novo nó será inserido: ");
+                                scanf("%d", &chave2);
+                                insereListaCircular(&lista, chave, chave2);
+                                break;
+                            case 2:
+                                system("@cls||clear");
+                                printf("Digite a chave do nó: ");
+                                scanf("%d", &chave);
+                                insereOrdemCrescenteListaCircular(&lista, chave);
+                                break;
+                            default:
+                                system("@cls||clear");
+                                printf(errorColor "Opção inválida\n" resetColor);
+                                break;
+                        }
+                    }
+                }
                 break;
             case 2:
-                printf("Digite a chave: ");
-                scanf("%d", &chave);
-                // buscaLista(lista, chave);
+                system("@cls||clear");
+                if (lista == NULL){
+                    printf(errorColor "LISTA VAZIA, não é possível remover nada!\n" resetColor);
+                }
+                else{
+                    printf("================Menu Remover================\n");
+                    printf("1 - Remover um elemento\n");
+                    printf("2 - Remover toda lista\n");
+
+                    printf("\nEscolha uma opção: ");
+                    scanf("%d", &opcaoUsuario);
+
+                    printf("=============================================\n");
+
+                    if (opcaoUsuario == 1){
+                        system("@cls||clear");
+                        printf("Digite a chave: ");
+                        scanf("%d", &chave);
+                        removeListaCircular(&lista, chave);
+                    }
+                    else if (opcaoUsuario == 2){
+                        system("@cls||clear");
+                        removeTodosListaCircular(&lista);
+                    }
+                    else{
+                        system("@cls||clear");
+                        printf(errorColor "Opção inválida\n" resetColor);
+                        opcaoUsuario = 0;
+                    }
+                }
                 break;
             case 3:
-                printf("Lista: \n");
-                // imprimeLista(lista);
+                system("@cls||clear");
+                printf("Lista 1: \n");
+                imprimeListaCircular(lista);
+                
+                if (lista2 != NULL){
+                    printf("------------\n");
+                    printf("Lista 2: \n");
+                    imprimeListaCircular(lista2);
+                }
                 break;
             case 4:
+                system("@cls||clear");
+                if (lista == NULL){
+                    printf(errorColor "LISTA VAZIA, não é possível dividir nada!\n" resetColor);
+                }
+                else if(lista2 != NULL){
+                    printf(errorColor "A lista já foi dividida, não é possível dividir mais!\n" resetColor);
+                }
+                else{
+                    printf("Digite a chave: ");
+                    scanf("%d", &chave);
+                    divideListaSimples(&lista, &lista2, chave);
+                }
+
+                break;
+            case 5:
                 system("@cls||clear"); //Clear no terminal do usuário (comando válido para Windows, Linux e MacOsX)
-                return;
+                
+                if (lista != NULL || lista2 != NULL) {
+                    printf(alertColor "Caso saia do menu a(s) lista(s) será(ão) perdida(s)\n" resetColor);
+                    printf("Deseja sair? (1 - Sim, 2 - Não)\n");
+                    scanf("%d", &opcaoUsuario);
+                    if (opcaoUsuario==1) {
+                        return;
+                        system("@cls||clear");
+                    }
+                }
+                else return;
+
                 break;
             default:
                 system("@cls||clear");
