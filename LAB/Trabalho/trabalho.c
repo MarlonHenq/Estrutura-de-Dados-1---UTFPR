@@ -1,3 +1,9 @@
+// Trabalho de Estruturas de Dados
+
+// Autores: 
+// Marlon Henrique Sanches
+// João Vitor Queiroz de Campos Pires
+
 #include <stdio.h>
 #include <stdlib.h>
 
