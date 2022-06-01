@@ -1,8 +1,8 @@
 // Trabalho de Estruturas de Dados
 
 // Autores: 
-// Marlon Henrique Sanches
-// João Vitor Queiroz de Campos Pires
+// Marlon Henrique Sanches - RA: 2407388
+// João Vitor Queiroz de Campos Pires - RA: 2376830
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -92,7 +92,10 @@ void insereListaSimples(TNo **p, int k, int chave){
     else{
         TNo *aux = buscaNo(*p, chave);
         
-        if (aux == NULL) return;
+        if (aux == NULL){
+            free(novo);
+            return;
+        }
 
         novo -> prox = aux -> prox;
         aux -> prox = novo;
@@ -228,7 +231,10 @@ void insereListaCircular(TNo **p, int k, int chave){
     else{
         TNo *aux = buscaNoCircular(*p, chave);
         
-        if (aux == NULL) return;
+        if (aux == NULL){
+            free(novo);
+            return;
+        }
 
         novo -> prox = aux -> prox;
         aux -> prox = novo;
@@ -411,7 +417,10 @@ void insereListaDupla(TNoEncadeado **p, int k, int chave){
     else{                                   // Insere no meio
         TNoEncadeado *aux = buscaNoEncadeado(*p, chave); 
         
-        if (aux == NULL) return;
+        if (aux == NULL){
+            free(novo);
+            return;
+        }
 
         if (aux->prox == NULL){ //Insere no final
             aux->prox = novo;
@@ -424,7 +433,6 @@ void insereListaDupla(TNoEncadeado **p, int k, int chave){
             aux->prox = novo;
         }
     }
-    //https://bit.ly/3N32aeB //Never gona give up
 }
 
 void insereOrdemCrescenteListaDupla(TNoEncadeado **p, int k){ 
@@ -585,8 +593,6 @@ int main(){
     }
     printf(contrastColor "Bye!\n" resetColor);
     exit(1);
-
-    //Copia não comédia
 
     return 0;
 }
@@ -1359,9 +1365,12 @@ void helpMenu(){
     printf("Trabalho de Estruturas de Dados\n");
     printf("\n");
     printf("Autores: \n");
-    printf(contrastColor "Marlon Henrique Sanches\n" resetColor);
-    printf(contrastColor "João Vitor Queiroz de Campos Pires\n" resetColor);
+    printf(contrastColor "Marlon Henrique Sanches - RA: 2407388\n" resetColor);
+    printf(contrastColor "João Vitor Queiroz de Campos Pires - RA: 2376830 \n" resetColor);
     printf("=========================================\n");
+    // Autores: 
+    // Marlon Henrique Sanches - RA: 2407388
+    // João Vitor Queiroz de Campos Pires - RA: 2376830
 
     printf("\n");
     printf("\n");
