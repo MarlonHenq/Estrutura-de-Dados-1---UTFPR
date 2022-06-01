@@ -252,6 +252,7 @@ void insereOrdemCrescenteListaCircular(TNo **p, int k){
 
         while (aux -> prox != *p){
             aux = aux -> prox;
+            //MARLON
         }
         aux -> prox = novo;
         *p = novo;
@@ -423,6 +424,7 @@ void insereListaDupla(TNoEncadeado **p, int k, int chave){
             aux->prox = novo;
         }
     }
+    //https://bit.ly/3N32aeB //Never gona give up
 }
 
 void insereOrdemCrescenteListaDupla(TNoEncadeado **p, int k){ 
@@ -570,6 +572,9 @@ int main(){
             case 6:
                 system("@cls||clear");
                 printf("Saindo do programa\n");
+                break;
+            case 42: //Menu ultra secreto
+                helpMenu();
                 break;
             default:
                 system("@cls||clear");
@@ -1136,6 +1141,8 @@ void listaCircularMenu(){ // Menu da lista circular
                     scanf("%d", &chave);
                     getchar();
                     divideListaCircular(&lista, &lista2, chave);
+
+                    //Salve Simone
                 }
 
                 break;
