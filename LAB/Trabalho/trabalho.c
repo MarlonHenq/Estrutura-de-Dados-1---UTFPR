@@ -580,6 +580,8 @@ int main(){
     printf(contrastColor "Bye!\n" resetColor);
     exit(1);
 
+    //Copia não comédia
+
     return 0;
 }
 
