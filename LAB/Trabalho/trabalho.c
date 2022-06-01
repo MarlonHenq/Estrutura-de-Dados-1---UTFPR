@@ -539,6 +539,7 @@ int main(){
 
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario); // Recepção da resposta do usuário
+        getchar();
 
         printf("=============================================\n");
 
@@ -604,6 +605,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
 
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario);
+        getchar();
 
         printf("===================================================\n");
 
@@ -613,6 +615,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                 if (lista == NULL){
                     printf("Digite a chave do novo nó: ");
                     scanf("%d", &chave);
+                    getchar();
                     insereListaSimples(&lista, chave, NULL); 
                 }
                 else{
@@ -625,6 +628,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
 
                         printf("\nEscolha uma opção: ");
                         scanf("%d", &opcaoUsuario);
+                        getchar();
 
                         printf("=============================================\n");
                         memoriaOpcao = opcaoUsuario;
@@ -634,20 +638,24 @@ void listaSimplesMenu(){ //Menu da lista Simples
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
+                                getchar();
                                 insereListaSimples(&lista, chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereOrdemCrescenteListaSimples(&lista, chave);
                                 break;
                             case 3:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereListaSimples(&lista, chave, NULL);
                                 break;
                             default:
@@ -662,20 +670,24 @@ void listaSimplesMenu(){ //Menu da lista Simples
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
+                                getchar();
                                 insereListaSimples(&lista, chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereOrdemCrescenteListaSimples(&lista, chave);
                                 break;
                             case 3:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereListaSimples(&lista, chave, NULL);
                                 break;
                             default:
@@ -698,6 +710,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
 
                     printf("\nEscolha uma opção: ");
                     scanf("%d", &opcaoUsuario);
+                    getchar();
 
                     printf("=============================================\n");
 
@@ -705,6 +718,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                         system("@cls||clear");
                         printf("Digite a chave: ");
                         scanf("%d", &chave);
+                        getchar();
                         removeListaSimples(&lista, chave);
                     }
                     else if (opcaoUsuario == 2){
@@ -740,6 +754,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                 else{
                     printf("Digite a chave: ");
                     scanf("%d", &chave);
+                    getchar();
                     divideListaSimples(&lista, &lista2, chave);
                 }
 
@@ -751,6 +766,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                     printf(alertColor "Caso saia do menu a(s) lista(s) será(ão) perdida(s)\n" resetColor);
                     printf("Deseja sair? (1 - Sim, 2 - Não)\n");
                     scanf("%d", &opcaoUsuario);
+                    getchar();
                     if (opcaoUsuario==1) {
                         return;
                         system("@cls||clear");
@@ -788,6 +804,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
 
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario);
+        getchar();
 
         printf("===================================================\n");
 
@@ -797,6 +814,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                 if ((lista->inicio) == NULL){
                     printf("Digite a chave do novo nó: ");
                     scanf("%d", &chave);
+                    getchar();
                     insereListaSimples(&(lista->inicio), chave, NULL); 
                 }
                 else{
@@ -809,6 +827,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
 
                         printf("\nEscolha uma opção: ");
                         scanf("%d", &opcaoUsuario);
+                        getchar();
 
                         printf("=============================================\n");
                         memoriaOpcao = opcaoUsuario;
@@ -818,20 +837,24 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
+                                getchar();
                                 insereListaSimples(&(lista->inicio), chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereOrdemCrescenteListaSimples(&(lista->inicio), chave);
                                 break;
                             case 3:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereListaSimples(&(lista->inicio), chave, NULL);
                                 break;
                             default:
@@ -846,20 +869,24 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
+                                getchar();
                                 insereListaSimples(&(lista->inicio), chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereOrdemCrescenteListaSimples(&(lista->inicio), chave);
                                 break;
                             case 3:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereListaSimples(&(lista->inicio), chave, NULL);
                                 break;
                             default:
@@ -882,6 +909,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
 
                     printf("\nEscolha uma opção: ");
                     scanf("%d", &opcaoUsuario);
+                    getchar();
 
                     printf("=============================================\n");
 
@@ -889,6 +917,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                         system("@cls||clear");
                         printf("Digite a chave: ");
                         scanf("%d", &chave);
+                        getchar();
                         removeListaSimples(&(lista->inicio), chave);
                     }
                     else if (opcaoUsuario == 2){
@@ -924,6 +953,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                 else{
                     printf("Digite a chave: ");
                     scanf("%d", &chave);
+                    getchar();
                     divideListaSimples(&(lista->inicio), &(lista2->inicio), chave);
                 }
 
@@ -935,6 +965,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                     printf(alertColor "Caso saia do menu a(s) lista(s) será(ão) perdida(s)\n" resetColor);
                     printf("Deseja sair? (1 - Sim, 2 - Não)\n");
                     scanf("%d", &opcaoUsuario);
+                    getchar();
                     if (opcaoUsuario==1) {
                         return;
                         system("@cls||clear");
@@ -969,6 +1000,7 @@ void listaCircularMenu(){ // Menu da lista circular
 
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario);
+        getchar();
 
         printf("===================================================\n");
 
@@ -978,6 +1010,7 @@ void listaCircularMenu(){ // Menu da lista circular
                 if (lista == NULL){
                     printf("Digite a chave do novo nó: ");
                     scanf("%d", &chave);
+                    getchar();
                     insereListaCircular(&lista, chave, NULL); 
                 }
                 else{
@@ -989,6 +1022,7 @@ void listaCircularMenu(){ // Menu da lista circular
 
                         printf("\nEscolha uma opção: ");
                         scanf("%d", &opcaoUsuario);
+                        getchar();
 
                         printf("=============================================\n");
                         memoriaOpcao = opcaoUsuario;
@@ -998,14 +1032,17 @@ void listaCircularMenu(){ // Menu da lista circular
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
+                                getchar();
                                 insereListaCircular(&lista, chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereOrdemCrescenteListaCircular(&lista, chave);
                                 break;
                             default:
@@ -1020,14 +1057,17 @@ void listaCircularMenu(){ // Menu da lista circular
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
+                                getchar();
                                 insereListaCircular(&lista, chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereOrdemCrescenteListaCircular(&lista, chave);
                                 break;
                             default:
@@ -1050,6 +1090,7 @@ void listaCircularMenu(){ // Menu da lista circular
 
                     printf("\nEscolha uma opção: ");
                     scanf("%d", &opcaoUsuario);
+                    getchar();
 
                     printf("=============================================\n");
 
@@ -1057,6 +1098,7 @@ void listaCircularMenu(){ // Menu da lista circular
                         system("@cls||clear");
                         printf("Digite a chave: ");
                         scanf("%d", &chave);
+                        getchar();
                         removeListaCircular(&lista, chave);
                     }
                     else if (opcaoUsuario == 2){
@@ -1092,6 +1134,7 @@ void listaCircularMenu(){ // Menu da lista circular
                 else{
                     printf("Digite a chave: ");
                     scanf("%d", &chave);
+                    getchar();
                     divideListaCircular(&lista, &lista2, chave);
                 }
 
@@ -1103,6 +1146,7 @@ void listaCircularMenu(){ // Menu da lista circular
                     printf(alertColor "Caso saia do menu a(s) lista(s) será(ão) perdida(s)\n" resetColor);
                     printf("Deseja sair? (1 - Sim, 2 - Não)\n");
                     scanf("%d", &opcaoUsuario);
+                    getchar();
                     if (opcaoUsuario==1) {
                         return;
                         system("@cls||clear");
@@ -1137,6 +1181,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
 
         printf("\nEscolha uma opção: ");
         scanf("%d", &opcaoUsuario);
+        getchar();
 
         printf("=====================================================\n");
 
@@ -1146,6 +1191,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                 if (lista == NULL){
                     printf("Digite a chave do novo nó: ");
                     scanf("%d", &chave);
+                    getchar();
                     insereListaDupla(&lista, chave, NULL); 
                 }
                 else{
@@ -1157,6 +1203,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
 
                         printf("\nEscolha uma opção: ");
                         scanf("%d", &opcaoUsuario);
+                        getchar();
 
                         printf("=============================================\n");
                         memoriaOpcao = opcaoUsuario;
@@ -1166,14 +1213,17 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
+                                getchar();
                                 insereListaDupla(&lista, chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereOrdemCrescenteListaDupla(&lista, chave);
                                 break;
                             default:
@@ -1188,14 +1238,17 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 printf("Digite a chave do nó após o qual o novo nó será inserido: ");
                                 scanf("%d", &chave2);
+                                getchar();
                                 insereListaDupla(&lista, chave, chave2);
                                 break;
                             case 2:
                                 system("@cls||clear");
                                 printf("Digite a chave do nó: ");
                                 scanf("%d", &chave);
+                                getchar();
                                 insereOrdemCrescenteListaDupla(&lista, chave);
                                 break;
                             default:
@@ -1218,6 +1271,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
 
                     printf("\nEscolha uma opção: ");
                     scanf("%d", &opcaoUsuario);
+                    getchar();
 
                     printf("=============================================\n");
 
@@ -1225,6 +1279,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                         system("@cls||clear");
                         printf("Digite a chave: ");
                         scanf("%d", &chave);
+                        getchar();
                         removeListaDuplamenteEncadeada(&lista, chave);
                     }
                     else if (opcaoUsuario == 2){
@@ -1260,6 +1315,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                 else{
                     printf("Digite a chave: ");
                     scanf("%d", &chave);
+                    getchar();
                     divideListaDuplamenteEncadeada(&lista, &lista2, chave);
                 }
 
@@ -1271,6 +1327,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                     printf(alertColor "Caso saia do menu a(s) lista(s) será(ão) perdida(s)\n" resetColor);
                     printf("Deseja sair? (1 - Sim, 2 - Não)\n");
                     scanf("%d", &opcaoUsuario);
+                    getchar();
                     if (opcaoUsuario==1) {
                         return;
                         system("@cls||clear");
@@ -1304,6 +1361,7 @@ void helpMenu(){
 
     printf("0 - Sair\n");
     scanf("%d", &opcaoUsuario);
+    getchar();
     if (opcaoUsuario>=0) {
         system("@cls||clear");
         return;
