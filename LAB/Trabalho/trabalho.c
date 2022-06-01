@@ -188,6 +188,8 @@ void removeTodosListaSimples(TNo **p){
         free(aux);
         aux = *p;
     }
+    free(aux);
+    *p = NULL;
 }
 
 void divideListaSimples(TNo **p, TNo **Lista2, int k){
