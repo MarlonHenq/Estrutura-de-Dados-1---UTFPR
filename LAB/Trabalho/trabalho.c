@@ -753,7 +753,7 @@ void listaSimplesMenu(){ //Menu da lista Simples
                 break;
             default:
                 system("@cls||clear");
-                printf("Opção inválida\n");
+                printf(errorColor "Opção inválida\n" resetColor);
                 break;
         }
     }
@@ -937,7 +937,7 @@ void listaComCabecaMenu(){ // Menu da lista com cabeça
                 break;
             default:
                 system("@cls||clear");
-                printf("Opção inválida\n");
+                printf(errorColor "Opção inválida\n" resetColor);
                 break;
         }
     }
@@ -1105,7 +1105,7 @@ void listaCircularMenu(){ // Menu da lista circular
                 break;
             default:
                 system("@cls||clear");
-                printf("Opção inválida\n");
+                printf(errorColor "Opção inválida\n" resetColor);
                 break;
         }
     }
@@ -1273,7 +1273,7 @@ void listaDuplamenteEncadeadaMenu(){ // Menu da lista duplamente encadeada
                 break;
             default:
                 system("@cls||clear");
-                printf("Opção inválida\n");
+                printf(errorColor "Opção inválida\n" resetColor);
                 break;
         }
     }
